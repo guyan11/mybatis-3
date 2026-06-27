@@ -76,6 +76,7 @@ public class SqlSessionFactoryBuilder {
 
   public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {
     try {
+      // 创建 XMLConfigBuilder 对象，并将 InputStream 传递给 XMLConfigBuilder 的构造函数
       XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);
       return build(parser.parse());
     } catch (Exception e) {
@@ -93,6 +94,7 @@ public class SqlSessionFactoryBuilder {
   }
 
   public SqlSessionFactory build(Configuration config) {
+    // 创建 DefaultSqlSessionFactory ，并将 Configuration 传递给 DefaultSqlSessionFactory 的构造函数
     return new DefaultSqlSessionFactory(config);
   }
 

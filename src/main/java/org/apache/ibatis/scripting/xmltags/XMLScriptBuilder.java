@@ -95,10 +95,12 @@ public class XMLScriptBuilder extends BaseBuilder {
           continue;
         }
         TextSqlNode textSqlNode = new TextSqlNode(data);
+        // 如果TextSqlNode是动态的，则整个MixedSqlNode是动态的
         if (textSqlNode.isDynamic()) {
           contents.add(textSqlNode);
           isDynamic = true;
         } else {
+          // 如果TextSqlNode是静态的，则整个MixedSqlNode是静态的
           contents.add(new StaticTextSqlNode(data));
         }
       } else if (child.getNode().getNodeType() == Node.ELEMENT_NODE) { // issue #628

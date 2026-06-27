@@ -85,6 +85,7 @@ public class CachingExecutor implements Executor {
   @Override
   public <E> List<E> query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler)
       throws SQLException {
+    // boundSql 是根据参数对象生成的，所以参数对象的变化，boundSql 也会变化
     BoundSql boundSql = ms.getBoundSql(parameterObject);
     CacheKey key = createCacheKey(ms, parameterObject, rowBounds, boundSql);
     return query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);
@@ -107,6 +108,7 @@ public class CachingExecutor implements Executor {
         return list;
       }
     }
+    // 如果没有开启缓存，则直接调用 delegate 的 query 方法
     return delegate.query(ms, parameterObject, rowBounds, resultHandler, key, boundSql);
   }
 
